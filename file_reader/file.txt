@@ -1,3 +1,5 @@
 { "name": "Andrzej", "date": "22/07/2019", "points": 22, "married": false}
 <person><name>John</name><date>07/02/1998</date><married>false</married><points>21</points></person>
+Bogdan, 02/11/2003, 45, false
 { "name": "Jassica", "points": 29, "date": "11/02/2009", "married": true}
+Radoslaw     30/01/2012     12     true

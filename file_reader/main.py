@@ -64,6 +64,42 @@ def find_xml(line):
     return person
 
 
+def find_csv(line):
+    xd = re.findall('([^, ]+)', line)
+
+    if len(xd) == 0:
+        return None
+
+    person = Person()
+    person.name = xd[0]
+    person.date = datetime.strptime(xd[1], '%d/%m/%Y')
+    person.points = xd[2]
+    if xd[3] == 'true':
+        person.married = True
+    else:
+        person.married = False
+
+    return person
+
+
+def find_space(line):
+    xd = re.findall('([^, \n]+)     (\d{2}/\d{2}/\d{4})     (\d+)     (true|false)', line)
+
+    if len(xd) == 0:
+        return None
+
+    person = Person()
+    person.name = xd[0]
+    person.date = datetime.strptime(xd[1], '%d/%m/%Y')
+    person.points = xd[2]
+    if xd[3] == 'true':
+        person.married = True
+    else:
+        person.married = False
+
+    return person
+
+
 persons = []
 f = open("file.txt")
 for x in f:
@@ -77,5 +113,16 @@ for x in f:
         persons.append(p)
         continue
 
+    p = find_csv(x)
+    if p is not None:
+        persons.append(p)
+        continue
+
+    p = find_space(x)
+    if p is not None:
+        persons.append(p)
+        continue
+
 for p in persons:
+    print('--------------------')
     p.display()
