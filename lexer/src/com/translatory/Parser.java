@@ -62,6 +62,7 @@ public class Parser {
         //resultList.push(String.valueOf(calculate(operandsList.firstElement())));
         operation(false);
         if(!operandsList.isEmpty())  throw new Exception("Invalid number of brackets");
+        if(resultList.size()>1) throw new Exception("No operations between numbers");
         for(String s: resultList){
             System.out.println(s);
         }
