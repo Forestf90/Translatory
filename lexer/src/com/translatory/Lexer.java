@@ -31,11 +31,12 @@ public class Lexer {
             } else if (l(line)) {
                 if (!tokenList.isEmpty()) {
                     Token last = tokenList.get(tokenList.size() - 1);
-                    if (last.getValue().equals("-")) {
-                        last.setValue(last.getValue() + line.charAt(currentIndex));
-                        last.setType(TokenType.number);
-                        currentIndex++;
-                    } else if (last.getValue().equals("0")) {
+//                    if (last.getValue().equals("-")) {
+//                        last.setValue(last.getValue() + line.charAt(currentIndex));
+//                        last.setType(TokenType.number);
+//                        currentIndex++;
+//                    } else
+                        if (last.getValue().equals("0")) {
                         System.out.println("Unexpected character at " + currentIndex + " index");
                         System.out.println("Multi-digit number cannot start with 0");
                         return false;
@@ -47,13 +48,17 @@ public class Lexer {
                         currentIndex++;
                     }
                 }
+                else {
+                    tokenList.add(new Token(TokenType.number, currentIndex, String.valueOf(line.charAt(currentIndex))));
+                    currentIndex++;
+                }
             } else {
                 System.out.println("Unexpected character at " + currentIndex + " index");
                 return false;
             }
         }
 
-        displayTokens();
+        //displayTokens();
         return true;
     }
 
@@ -80,6 +85,10 @@ public class Lexer {
     private boolean l(String line) {
 
         return "0123456789".contains("" + line.charAt(currentIndex));
+    }
+
+    public List<Token> getTokens(){
+        return this.tokenList;
     }
 }
 
